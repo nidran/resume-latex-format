@@ -1,0 +1,456 @@
+%-------------------------
+% Entry-level Resume in LaTeX
+% Last Edits - July 19, 2021
+% Author : Jayesh Sanwal
+% Reach out to me on LinkedIn(/in/jsanwal), with any suggestions, ideas, etc.
+%------------------------
+
+%%-------------------------------------
+% Author Notes here -
+% 1) Change " Author+an = {N=highlight}" in "Publications.bib", where N is the number at which your name appears
+% 2) Use "\vspace" wisely, that would change spacing, and is currently being used as a hacky fix
+% 3) Do not delete the fonts in the left side
+% 4) Use the "Rich Text" feature on Overleaf - On the top panel next to source. Makes it much easier for starters on LaTeX to use this template
+% 5) Do NOT use periods at the end of bullet points, the sample (ipsum) text might have it
+% 6) Use "maxbibnames" on this file to change the maximum number of authors on the paper (Credits: Dr. Natasha Krell) - Default is 3, but change line 92 to add authors
+
+%%-------------------------------------
+% Changes from last version -
+% 1) Removed areas of Expertise as a separate section - integrated into the summary section
+% 2) Changed Focus to Academic Projects instead of Education
+% 3) Made the integrated summary 3 lines over 1
+% 4) Changed spacing between sections and bullets
+% 5) Changed the number of authors to be user customized
+
+%%-------------------------------------
+% Changes to be made here -
+% 1) Shift to Class file, make changes here
+% 2) Use a fonts folder
+% 3) Incorporate Leadership & volunteering together
+% 4) Remove \vspace based 'hacky' fixes
+%%-------------------------------------
+
+
+\documentclass[a4,10pt]{article}
+
+%%%%%%% --------------------------------------------------------------------------------------
+%%%%%%%  STARTING HERE, DO NOT TOUCH ANYTHING 
+%%%%%%% --------------------------------------------------------------------------------------
+\RequirePackage{fontawesome}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+ \usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage{multicol}
+\usepackage{hyperref}
+\usepackage{csquotes}
+\usepackage{tabularx}
+\hypersetup{colorlinks=true,urlcolor=black}
+\usepackage[11pt]{moresize}
+\usepackage{setspace}
+\usepackage{fontspec}
+\usepackage[inline]{enumitem}
+\usepackage{array}
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
+\usepackage{anyfontsize}
+
+%%%% Set Margins
+\usepackage[margin=1cm, top=1cm]{geometry}
+
+%%%% Set Fonts
+\setmainfont[
+BoldFont=SourceSansPro-Semibold.otf, %SourceSansPro-Bold.otf
+ItalicFont=SourceSansPro-RegularIt.otf
+]{SourceSansPro-Regular.otf}
+\setsansfont{SourceSansPro-Semibold.otf}
+
+%%%% Set Page
+\pagestyle{fancy}
+\fancyhf{} 
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+%%%% Set URL Style
+\urlstyle{same}
+
+%%%% Set Indentation
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+%%%% Set Secondary Color
+\definecolor{UI_blue}{RGB}{32, 64, 151}
+
+%%%% Define New Commands
+\usepackage[style=nature, maxbibnames=3]{biblatex}
+\addbibresource{Publications.bib}
+
+%%%% Bold Name in Publications
+\renewcommand*{\mkbibnamegiven}[1]{%
+\ifitemannotation{highlight}
+{\textbf{#1}}
+{#1}}
+
+\renewcommand*{\mkbibnamefamily}[1]{%
+\ifitemannotation{highlight}
+{\textbf{#1}}
+{#1}}
+
+%%%% Set Sections formatting
+\titleformat{\section}{
+ \scshape \raggedright \large 
+}{}{0em}{}[\vspace{-10pt} \hrulefill \vspace{-6pt}]
+
+%%%% Set Subtext Formatting
+\newcommand{\subtext}[1]{
+#1\par\vspace{-0.2cm}}
+
+% \newcommand{\subtextit}[1]{\vspace{0.15cm}
+% \textit{ #1 \vspace{-0.2cm}} }
+
+%%%% Set Item Spacing
+\setlist[itemize]{align=parleft,left=0pt..1em}
+
+%%%% New Itemize "Zitemize" Formatting - tighter spacing than itemize
+\newenvironment{zitemize}{
+\begin{itemize}\itemsep0pt \parskip0pt \parsep1pt}
+{\end{itemize}\vspace{-0.5cm}}
+
+
+%%%% Define Skills Bold Formatting
+\newcommand{\hskills}[1]{
+\textbf{\bfseries #1} }
+
+%%%% Set Subsection formatting
+\titleformat{\subsection}{\vspace{-0.1cm} 
+\bfseries \fontsize{11pt}{2cm}}{}{0em}{}[\vspace{-0.2cm}]
+
+% Define a header for CV
+% Usage: \makecvheader
+\newcommand*{\makecvheader}[1][C]{%
+  \newcommand*{\drawphoto}{%
+    \ifthenelse{\isundefined{\@photo}}{}{%
+      \newlength{\photodim}
+      \ifthenelse{\equal{\@photoshape}{circle}}%
+        {\setlength{\photodim}{1.3cm}}%
+        {\setlength{\photodim}{1.8cm}}%
+      \ifthenelse{\equal{\@photoedge}{edge}}%
+        {\def\@photoborder{darkgray}}%
+        {\def\@photoborder{none}}%
+      \begin{tikzpicture}%
+        \node[\@photoshape, draw=\@photoborder, line width=0.3mm, inner sep=\photodim, fill overzoom image=\@photo] () {};
+      \end{tikzpicture}
+    }%
+  }
+  \newlength{\headertextwidth}
+  \newlength{\headerphotowidth}
+  \ifthenelse{\isundefined{\@photo}}{
+    \setlength{\headertextwidth}{\textwidth}
+    \setlength{\headerphotowidth}{0cm}
+  }{%
+    \setlength{\headertextwidth}{0.76\textwidth}
+    \setlength{\headerphotowidth}{0.24\textwidth}
+  }%
+  \begin{minipage}[c]{\headerphotowidth}%
+    \ifthenelse{\equal{\@photoalign}{left}}{\raggedright\drawphoto}{}
+  \end{minipage}
+  \begin{minipage}[c]{\headertextwidth}
+    \ifthenelse{\equal{#1}{L}}{\raggedright}{\ifthenelse{\equal{#1}{R}}{\raggedleft}{\centering}}
+    \headerfirstnamestyle{\@firstname}\headerlastnamestyle{{}\acvHeaderNameDelim\@lastname}%
+    \\[\acvHeaderAfterNameSkip]%
+    \ifthenelse{\isundefined{\@position}}{}{\headerpositionstyle{\@position\\[\acvHeaderAfterPositionSkip]}}%
+    \ifthenelse{\isundefined{\@address}}{}{\headeraddressstyle{\@address\\[\acvHeaderAfterAddressSkip]}}%
+    \headersocialstyle{%
+      \newbool{isstart}%
+      \setbool{isstart}{true}%
+      \ifthenelse{\isundefined{\@mobile}}%
+        {}%
+        {%
+          \faMobile\acvHeaderIconSep\@mobile%
+          \setbool{isstart}{false}%
+        }%
+      \ifthenelse{\isundefined{\@email}}%
+        {}%
+        {%
+          \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
+          \href{mailto:\@email}{\faEnvelope\acvHeaderIconSep\@email}%
+        }%
+      \ifthenelse{\isundefined{\@homepage}}%
+        {}%
+        {%
+          \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
+          \href{http://\@homepage}{\faHome\acvHeaderIconSep\@homepage}%
+        }%
+      \ifthenelse{\isundefined{\@github}}%
+        {}%
+        {%
+          \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
+          \href{https://github.com/\@github}{\faGithubSquare\acvHeaderIconSep\@github}%
+        }%
+      \ifthenelse{\isundefined{\@gitlab}}%
+        {}%
+        {%
+          \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
+          \href{https://gitlab.com/\@gitlab}{\faGitlab\acvHeaderIconSep\@gitlab}%
+        }%
+      \ifthenelse{\isundefined{\@stackoverflowid}}%
+        {}%
+        {%
+          \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
+          \href{https://stackoverflow.com/users/\@stackoverflowid}{\faStackOverflow\acvHeaderIconSep\@stackoverflowname}%
+        }%
+      \ifthenelse{\isundefined{\@linkedin}}%
+        {}%
+        {%
+          \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
+          \href{https://www.linkedin.com/in/\@linkedin}{\faLinkedinSquare\acvHeaderIconSep\@linkedin}%
+        }%
+      \ifthenelse{\isundefined{\@twitter}}%
+        {}%
+        {%
+          \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
+          \href{https://twitter.com/\@twitter}{\faTwitter\acvHeaderIconSep\@twitter}%
+        }%
+      \ifthenelse{\isundefined{\@skype}}%
+        {}%
+        {%
+          \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
+          \faSkype\acvHeaderIconSep\@skype%
+        }%
+      \ifthenelse{\isundefined{\@reddit}}%
+        {}%
+        {%
+          \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
+          \href{https://www.reddit.com/user/\@reddit}{\faReddit\acvHeaderIconSep\@reddit}%
+        }%
+      \ifthenelse{\isundefined{\@xing}}%
+        {}%
+        {%
+          \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
+          \href{https://www.xing.com/profile/\@xing}{\faXingSquare\acvHeaderIconSep\@xing}
+        }%
+      \ifthenelse{\isundefined{\@extrainfo}}%
+        {}%
+        {%
+          \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
+          \@extrainfo%
+        }%
+    } \\[\acvHeaderAfterSocialSkip]%
+    \ifthenelse{\isundefined{\@quote}}%
+      {}%
+      {\headerquotestyle{\@quote\\}\vspace{\acvHeaderAfterQuoteSkip}}%
+  \end{minipage}%
+  \begin{minipage}[c]{\headerphotowidth}%
+    \ifthenelse{\equal{\@photoalign}{right}}{\raggedleft\drawphoto}{}
+  \end{minipage}
+}
+
+%%%%%%% --------------------------------------------------------------------------------------
+%%%%%%% --------------------------------------------------------------------------------------
+%%%%%%%  END OF "DO NOT TOUCH" REGION
+%%%%%%% --------------------------------------------------------------------------------------
+%%%%%%% --------------------------------------------------------------------------------------
+
+\begin{document}
+
+%%%%%%% --------------------------------------------------------------------------------------
+%%%%%%%  HEADER
+%%%%%%% --------------------------------------------------------------------------------------
+\begin{center}
+   
+ 
+            \centering
+            \hspace{0.2cm}
+            \textbf{{\LARGE Jane Doe}} \\ %
+            \vspace{0.2cm}
+            % \textbf{vGrace Hopper Celebration of Women in Computing 2021}\\
+            \hspace {0.15cm} \textbf{Phone}: +1 (xxx) xxx xxxx \textbf{|} 
+          \href{mailto:xxx@abc.com}{\textbf{Email}:xxx@abc.com} \textbf{|} 
+            \href{https://github.com/xxx}{\textbf{Github}: xxx} \textbf{|} 
+            \href{https://www.linkedin.com/in/xxx/}{\textbf{LinkedIn}: xxx } \textbf{|} 
+            \href{https://xxx.github.io}{\textbf{Website}: www.xxx.com} \textbf{|} \textbf{XXX}, USA
+           
+   
+    
+\vspace{-0.15cm} 
+% {\color{UI_blue} \hrulefill}
+\end{center}
+% \vspace{-0.2cm}
+% Highly Driven Solutions Engineer with 5+ years of experience defending the wall as part of the Night's Watch. \hskills{Areas of expertise:} Defence, security, leadership, cold-weather survival. \hskills{Impact:} Internationally recognized SME in knowing nothing, crowned "King in the North", drove Annihilation of Night King from development to release  \vspace{-0.2cm}
+
+%%%%%%% --------------------------------------------------------------------------------------
+%%%%%%%  EDUCATION
+%%%%%%% --------------------------------------------------------------------------------------
+\section{Education }
+\subsection*{New York University, Courant Institute of Mathematical Science | vGHC'21  \hfill Jan 2021  - Dec 2022} 
+{Master of Science in Computer Science  \hfill{CGPA: xxx/4}} \\
+ \textit{Relevant Coursework:}  Algorithms, Operating Systems, Computer Vision, Natural Language Processing, Programming Languages, 
+
+\vspace{-0.25cm}
+\subsection*{National Institute of Technology Goa  \hfill July 2014 - July 2018 } 
+{Graduated with a Bachelor of Technology in Computer Science and Engineering  \hfill{CGPA: xxx/10}} \\
+\textit{Relevant Coursework:} ML, Advanced Algorithms, Graph Theory, Databases, Data Mining, Optimisation Techniques in Computing
+
+\vspace{-0.2cm}
+
+%%%%%%% --------------------------------------------------------------------------------------
+%%%%%%%  SKILLS
+%%%%%%% --------------------------------------------------------------------------------------
+\section{Software Skills}
+\begin{tabular}{p{11em} p{1em} p{43em}}
+\hskills{Languages }&  & Java, C/C++, Python, JavaScript, HTML, CSS \\
+\hskills{Frameworks / Libraries}& &  Angular9, Spring-boot, Spring, Flask, Django, Pytorch, TensorFlow, Scrapy, Git, Jenkins, Scikit-Learn \\
+\hskills{Database}& & MySQL, MongoDB, Oracle SQL, PostgreSQL \\
+\hskills{MOOC} &  & Angular, Intel Edge AI Nanodegree, Neural Networks and Deep Learning  \\
+\end{tabular}
+\vspace{-0.2cm}
+
+
+%%%%%%% --------------------------------------------------------------------------------------
+%%%%%%%  WORK EXPERIENCE
+%%%%%%% --------------------------------------------------------------------------------------
+\section{Experience}
+
+%%% ----- Best way to write items (Credit - ResumePuppy.com)
+        % \item Developed AngularJS microservice to automate parsing of ~300 emails/day for efficient service request categorization using Linux MBox & Perl scripts; reduced manual re-allocation by 87%.
+        % \item Led the development, build and bring-up execution of Lyft’s first functional AV platform from start to finish; established fleet-grade product reliability over 5 months.
+        % \item Enhanced user experience by fine-tuning stored procedures & SQL queries for efficient data retrieval from ~4M records accessed by 5000+ users worldwide.
+        % \item Built a custom menu single handedly using HTML5, CSS3, XML and JSP and improved the performance of existing application by tuning the PL/SQL scripts by 20\% and reduced on-migration time.
+        
+
+%%%%%%% ----------------------------------- Role 4 ----------------------------------- %%%%%%%
+\subsection*{XXXXX | Software Development Engineer \hfill Jul 2018 --- Jan 2021} 
+\vspace{0.2cm}
+\subtext{}
+    \begin{zitemize}
+        \item {Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed felis eget velit aliquet sagittis id consectetur purus ut. Tempor commodo ullamcorper a lacus.}
+        \item { Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed felis eget velit aliquet sagittis id consectetur purus ut. Tempor commodo ullamcorper a lacus. }
+         \item {Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed felis eget velit aliquet sagittis id consectetur purus ut. Tempor commodo ullamcorper a lacus.}
+          \item { Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed felis eget velit aliquet sagittis id consectetur purus ut. Tempor commodo ullamcorper a lacus. }
+         \item {Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed felis eget velit aliquet sagittis id consectetur purus ut. Tempor commodo ullamcorper a lacus.}
+        
+        % \item {Revamped UI/UX for Smart Business dashboard and integrated flexibility for online update of personal data by making use of AngularJS. User registrations surged by 3000 business customers in Week 1.
+% }
+
+
+       
+    \end{zitemize}
+
+
+%%%%%%% ----------------------------------- Role 5 ----------------------------------- %%%%%%%
+\subsection*{XXXX | Data Science Intern \hfill May 2016 --- Jul 2016} 
+\vspace{0.2cm}
+\subtext{}
+    \begin{zitemize}
+       \item { Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed felis eget velit aliquet sagittis id consectetur purus ut. Tempor commodo ullamcorper a lacus. }
+         \item {Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed felis eget velit aliquet sagittis id consectetur purus ut. Tempor commodo ullamcorper a lacus.}
+          \item { Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed felis eget velit aliquet sagittis id consectetur purus ut. Tempor commodo ullamcorper a lacus. }
+         
+        
+    \end{zitemize}
+
+
+
+%%%%%%% --------------------------------------------------------------------------------------
+%%%%%%%  ACADEMIC PROJECTS
+%%%%%%% --------------------------------------------------------------------------------------
+\section{Projects} %% (Or "Research", select as appropriate)
+
+%%% ----- Best way to write items (Credit - FAANGPath)
+        % \item Achieved X\% growth for XYZ using A, B, and C skills.
+        % \item Led XYZ which led to X\% of improvement in ABC
+        % \item Developed XYZ that did A, B, and C using X, Y, and Z. 
+
+
+%%%%%%% ----------------------------------- Role 1 ----------------------------------- %%%%%%%
+\subsection*{Predicting time to death for Sepsis Patients using Causal Inference  | New York University \hfill Mar 2021 --- May 2021} 
+    \begin{zitemize}
+          \item { Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed felis eget velit aliquet sagittis id consectetur purus ut. Tempor commodo ullamcorper a lacus. }
+         \item {Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed felis eget velit aliquet sagittis id consectetur purus ut. Tempor commodo ullamcorper a lacus.}
+         
+        
+    \end{zitemize}
+%%%%%%% ----------------------------------- Role 1 ----------------------------------- %%%%%%%
+\subsection*{Video Surveillance for COVID 19 Spread | Personal  \hfill Sep 2020 --- Dec 2020} 
+    \begin{zitemize}
+         \item { Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed felis eget velit aliquet sagittis id consectetur purus ut. Tempor commodo ullamcorper a lacus. }
+         \item {Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed felis eget velit aliquet sagittis id consectetur purus ut. Tempor commodo ullamcorper a lacus.}
+        
+        
+    \end{zitemize}
+
+
+%%%%%%% ----------------------------------- Role 2 ----------------------------------- %%%%%%%
+\subsection*{Classification \& Annotation in Medical Image Analysis |  IIT Mandi, NIT Goa \hfill Dec 2017 --- May 2018} 
+    \begin{zitemize}
+        \item { Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed felis eget velit aliquet sagittis id consectetur purus ut. Tempor commodo ullamcorper a lacus. }
+        
+        
+        
+    \end{zitemize}
+
+
+
+
+
+
+
+
+
+
+%%%%%%% --------------------------------------------------------------------------------------
+%%%%%%%  VOLUNTEER EXPERIENCE
+%%%%%%% --------------------------------------------------------------------------------------
+% \section{Volunteer (or LEADERSHIP) Experience}
+
+%%%%%%% ----------------------------------- Role 6 ----------------------------------- %%%%%%%
+% \subsection*{Position, Org \hfill Mon yyyy --- Mon yyyy} 
+%     \begin{zitemize}
+            % \item \textbf{Short Project Title.} {Build a project that does something and had quantified success using A, B, and C.}
+%     \end{zitemize}
+
+
+%%%%%%% ----------------------------------- Role 6 ----------------------------------- %%%%%%%
+% \subsection*{Position, Org \hfill Mon yyyy --- Mon yyyy} 
+%     \begin{zitemize}
+            % \item \textbf{Short Project Title.} {Build a project that does something and had quantified success using A, B, and C.}
+%     \end{zitemize}
+
+
+
+%%%%%%% --------------------------------------------------------------------------------------
+%%%%%%%  PUBLICATIONS
+%%%%%%% --------------------------------------------------------------------------------------
+% \section{Publications} 
+% \renewcommand\refname{\vskip -1.5em}
+% \nocite{*}
+% \printbibliography[heading=none]
+% \vspace{-0.4cm}
+
+
+
+%%%%%%% --------------------------------------------------------------------------------------
+%%%%%%%  AWARDS & HONORS
+%%%%%%% --------------------------------------------------------------------------------------
+\section{Leadership \& Awards}
+\vspace{-0.2cm}
+\begin{tabular}[t]{ p{52 em} p{4em}}
+
+% \hskills{2021} & Recitation Leader - Mathematics for Economics  {\hfill New York University}\\ 
+\textbf{Recitation Leader} for Mathematics for Economics II (MATH-UA 212) at NYU Courant. & \hskills{2021}
+\\
+\textbf{Onboarding Buddy }- Mentored new recruits in Business Banking,  \textbf{Coordinator}-  Ways of Working Committee at Barclays. & \hskills{2020} 
+\\
+\textbf{Vice President} of Computer Science and Engineering Association at National Institute of Technology Goa. & \hskills{2018} 
+\\ 
+
+\end{tabular} 
+
+%%%%%%% ---------------------------- END DOC HERE ---------------------------- %%%%%%% 
+\end{document}
